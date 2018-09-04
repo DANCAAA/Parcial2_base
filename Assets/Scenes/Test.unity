@@ -505,7 +505,7 @@ Transform:
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &685850843
 BoxCollider2D:
@@ -660,6 +660,8 @@ GameObject:
   - component: {fileID: 1351252520}
   - component: {fileID: 1351252519}
   - component: {fileID: 1351252522}
+  - component: {fileID: 1351252524}
+  - component: {fileID: 1351252523}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -749,7 +751,7 @@ Transform:
   m_LocalScale: {x: 16, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &1351252522
 MonoBehaviour:
@@ -765,6 +767,28 @@ MonoBehaviour:
   hazardTemplate: {fileID: 1521552842562668, guid: 2d209c2065defb04a8ab38c8b7a6db2d,
     type: 2}
   spawnFrequency: 5
+--- !u!114 &1351252523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1351252518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9aa26ee1ccab7741993b8578a842fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1351252524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1351252518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c290200f0e8c5de48a859dc07c7bfdb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1991462833
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,6 +879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   bulletGO: {fileID: 1636773326158786, guid: 1541e6cdb4c541942a69d3d62dc9c36d, type: 2}
+  APbulllet: {fileID: 1134862156259786, guid: 78e862f64800adb45b2897881dadf829, type: 2}
 --- !u!61 &1991462837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -864,7 +889,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
