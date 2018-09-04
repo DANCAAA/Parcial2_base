@@ -21,6 +21,8 @@ public class Hazard : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
+        //destroy the game obgect if it collides with other object
+        Destroy(this);
         if (collision.gameObject.GetComponent<Bullet>() != null)
         {
             //TODO: Make this to reduce damage using Bullet.damage attribute

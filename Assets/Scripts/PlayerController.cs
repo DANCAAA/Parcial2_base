@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Object bulletGO;
 
+    [SerializeField]
+    private Object APbulllet;
+
     protected bool InsideCamera(bool positive)
     {
         float direction = positive ? 1F : -1F;
@@ -41,12 +44,20 @@ public class PlayerController : MonoBehaviour
             transform.position += new Vector3(movementFactor * speed * Time.deltaTime, 0F, 0F);
         }
 
-        if (bulletGO != null && Input.GetAxis("Jump") != 0 && canFire)
+        if (bulletGO != null && Input.GetAxis("Fire1") != 0 && canFire)
         {
             Instantiate(bulletGO, transform.position + (transform.up * 0.5F), Quaternion.identity);
             print("Fiyah!");
             StartCoroutine("FireCR");
         }
+
+        if (APbulllet != null && Input.GetAxis("Fire2") != 0 && canFire)
+        {
+            Instantiate(APbulllet, transform.position + (transform.up * 0.2F), Quaternion.identity);
+            print("Fiyah!");
+            StartCoroutine("FireCR");
+        }  
+
     }
 
     private void OnDestroy()
@@ -55,14 +66,26 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //IF any hazard impacts player the game will game over
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<Hazard>() != null)
         {
             Time.timeScale = 0F;
-            print("Game Over");
+            Debug.Log("Game Over");
         }
     }
+
+    //IF any hazard overlaps player the game will game over
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Hazard>() != null)
+        {
+            Time.timeScale = 0F;
+            Debug.Log("Game Over");
+        }
+    }
+
 
     private IEnumerator FireCR()
     {

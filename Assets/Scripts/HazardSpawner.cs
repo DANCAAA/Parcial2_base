@@ -30,6 +30,8 @@ public class HazardSpawner : MonoBehaviour
         InvokeRepeating("SpawnEnemy", 0.2F, spawnFrequency);
     }
 
+  
+
     private void SpawnEnemy()
     {
         if (hazardTemplate == null)
