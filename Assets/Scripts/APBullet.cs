@@ -4,38 +4,18 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class APBullet : MonoBehaviour
+public class APBullet : Bullet
 {
-    [SerializeField]
-    private int damage = 1;
-
-    private Collider2D myCollider;
-    private Rigidbody2D myRigidbody;
-
-    //More slow than the normal bullet
-    [SerializeField]
-    private float force = 5F;
-
-    //Time auto destroy time of the bullet
-    [SerializeField]
-    private float autoDestroyTime = 5F;
-    // Use this for initialization
-    void Start () {
-        myCollider = GetComponent<Collider2D>();
-        myRigidbody = GetComponent<Rigidbody2D>();
-
-        myRigidbody.AddForce(transform.up * force, ForceMode2D.Impulse);
-
-        Invoke("AutoDestroy", autoDestroyTime);
-    }
-
-    private void AutoDestroy()
+    protected override void Start ()
     {
-        Destroy(gameObject);
-        Destroy(gameObject);
+        base.Start();
     }
 
-    //En
+    protected override void AutoDestroy()
+    {
+        base.AutoDestroy();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("hazard impact");
@@ -45,8 +25,4 @@ public class APBullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

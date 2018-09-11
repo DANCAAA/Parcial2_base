@@ -18,6 +18,15 @@ public class KillVolume : MonoBehaviour
             }
         }
 
-        Destroy(collision.gameObject);
+        if (collision.gameObject.tag == "Invader")
+        {
+            collision.gameObject.GetComponent<Invader>().move = false;
+        } 
+
+        else
+        {
+            collision.gameObject.SetActive(false);
+        }     
+
     }
 }

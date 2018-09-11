@@ -1,48 +1,70 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Shelter : MonoBehaviour
 {
-    [SerializeField]
-    private int maxResistance = 5;
+    public int resistance = 5;
 
-    int regentTime = 0;
+    public float regentTime = 0;
+    public float regenTimeCooldown = 5;
 
-    public int MaxResistance
+    private bool isInCooldown;
+
+    // ***
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        get
+        Debug.Log("Shelter :: OnTriggerEnter2D");
+
+        if (collision.gameObject.CompareTag("Invader") ||
+            collision.gameObject.CompareTag("Debris") ||
+            collision.gameObject.CompareTag("Hazard"))
         {
-            return maxResistance;
-        }
-        protected set
+            SubstractResistance();
+
+            if (isInCooldown)
+            {
+                StopCoroutine(StartRegenTime());
+
+                isInCooldown = false;
+            }
+            else
+            {
+                StartCoroutine(StartRegenTime());
+
+                isInCooldown = true;
+            }
+        } 
+    }
+
+    private void AddResistance()
+    {
+        Debug.Log("Shelter :: AddResistance");
+
+        resistance++;
+    }
+
+    private void SubstractResistance()
+    {
+        Debug.Log("Shelter :: SubstractResistance");
+
+        resistance--;
+    }
+
+    private IEnumerator StartRegenTime()
+    {
+        Debug.Log("Shelter :: StartRegenTime");
+
+        while (regentTime <= regenTimeCooldown)
         {
-            maxResistance = value;
+            regentTime += Time.deltaTime;
+
+            yield return null;
         }
-    }
 
-    //Impact rest points
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        maxResistance = maxResistance - 1;
-        regenTime();
-    }
+        regentTime = 0;
 
-    //If the resistence is 0 destroy shelter
-    public void Damage(int damage)
-    {
-       if(maxResistance == 0)
-        {
-            Debug.Log("Game over");
-            Destroy(this);
-        }
-    }
-
-    void regenTime()
-    {
-        regentTime = regentTime + 1;
-    }
-
-    private void Update()
-    {
-       
+        AddResistance();
     }
 }

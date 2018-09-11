@@ -10,8 +10,6 @@ public class Hazard : MonoBehaviour
     [SerializeField]
     private float resistance = 1F;
 
-    private float spinTime = 1F;
-
     // Use this for initialization
     protected void Start()
     {
@@ -21,8 +19,6 @@ public class Hazard : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        //destroy the game obgect if it collides with other object
-        Destroy(this);
         if (collision.gameObject.GetComponent<Bullet>() != null)
         {
             //TODO: Make this to reduce damage using Bullet.damage attribute
@@ -30,14 +26,20 @@ public class Hazard : MonoBehaviour
 
             if (resistance == 0)
             {
-                OnHazardDestroyed();
+                //Desactiva
+                //dejar de mover
+                if (collision.gameObject.tag == "Invader")
+                {
+                    collision.gameObject.GetComponent<Invader>().move = false;
+                }
+
+                else
+                {
+                    collision.gameObject.SetActive(false);
+
+                    UIManager.Instance.IncreaseHazardCount();
+                }
             }
         }
-    }
-
-    protected void OnHazardDestroyed()
-    {
-        //TODO: GameObject should spin for 'spinTime' secs. then disappear
-        Destroy(gameObject);
     }
 }

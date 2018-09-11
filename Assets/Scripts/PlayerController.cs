@@ -21,11 +21,12 @@ public class PlayerController : MonoBehaviour
     protected bool InsideCamera(bool positive)
     {
         float direction = positive ? 1F : -1F;
-        Vector3 cameraPoint = Camera.main.WorldToViewportPoint(
-            new Vector3(
+
+        Vector3 cameraPoint = Camera.main.WorldToViewportPoint(new Vector3(
                 myCollider.bounds.center.x + myCollider.bounds.extents.x * direction,
                 0F,
                 0F));
+
         return cameraPoint.x >= 0F && cameraPoint.x <= 1F;
     }
 
@@ -34,7 +35,6 @@ public class PlayerController : MonoBehaviour
         myCollider = GetComponent<Collider2D>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         movementFactor = Input.GetAxis("Horizontal");
@@ -57,12 +57,12 @@ public class PlayerController : MonoBehaviour
             print("Fiyah!");
             StartCoroutine("FireCR");
         }  
-
     }
 
     private void OnDestroy()
     {
         StopCoroutine("FireCR");
+
         Destroy(gameObject);
     }
 
@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game Over");
         }
     }
-
 
     private IEnumerator FireCR()
     {

@@ -15,7 +15,9 @@ public static class SpawnerExtensions
 public class HazardSpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject hazardTemplate;
+    private Transform hazardParent;
+
+    public Transform[] hazardSpawnPoints;
 
     private Collider2D myCollider;
 
@@ -30,17 +32,21 @@ public class HazardSpawner : MonoBehaviour
         InvokeRepeating("SpawnEnemy", 0.2F, spawnFrequency);
     }
 
-  
-
     private void SpawnEnemy()
     {
-        if (hazardTemplate == null)
+        int r1 = Random.Range(0, hazardParent.childCount);
+        while (hazardParent.GetChild(r1).gameObject.activeSelf)
         {
-            CancelInvoke();
+             r1 = Random.Range(0, hazardParent.childCount);
         }
-        else
+
+        //Activa los hijos de hazard para spwnear crear o destruir
+        if(hazardParent.GetChild(r1).gameObject.tag == "Invader")
         {
-            Instantiate(hazardTemplate, myCollider.GetPointInVolume(), transform.rotation);
+            hazardParent.GetChild(r1).gameObject.GetComponent<Invader>().move = true;
         }
+        int r = Random.Range(0, hazardSpawnPoints.Length);
+        hazardParent.GetChild(r1).gameObject.transform.position = hazardSpawnPoints[r].position;
+        hazardParent.GetChild(r1).gameObject.SetActive(true);
     }
 }
