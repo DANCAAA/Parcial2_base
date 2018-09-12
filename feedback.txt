@@ -1,0 +1,15 @@
+Feedback
+
+Examen (1.0/5.0)
+ * Bullet no se destruye cuando impacta con un hazard.
+ * No hay implementación de Debris o Invader
+ * APBullet no destruye hazards. Esto hace que aún el hazard impactado pueda pasar de los shelters o pegarles.
+ * No hay GameOver una vez un hazard traspasa la posición del player o de los shelters.
+ * Los hazards no hacen daño a los shelters ni se destruyen una vez los impactan.
+ * La Implementación del tiempo de regeneración solo incrementa un contador, pero no tiene efecto en la resistencia del shelter.
+ * La única implementación correcta es la de disparo de las balas.
+
+Bonificación (0.0/0.5)
+ * No hay propuesta para la bonificación
+
+Total: 1.0 / 5.0
